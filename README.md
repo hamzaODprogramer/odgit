@@ -1,7 +1,7 @@
 # odgit - Retro Git TUI Dashboard
 
 A beautiful, keyboard-driven git interface with a dark retro aesthetic. Fast, minimal, no bloat.
-<img width="481" height="159" alt="Capture d’écran 2026-04-01 001847" src="https://github.com/user-attachments/assets/7b68c832-53ba-4262-a5cc-e95b2ce95a8f" />
+<img width="600" height="200" alt="Capture d’écran 2026-04-01 001847" src="https://github.com/user-attachments/assets/7b68c832-53ba-4262-a5cc-e95b2ce95a8f" />
 
 
 ## 🎯 What is odgit?
