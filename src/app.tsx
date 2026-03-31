@@ -153,13 +153,13 @@ const App: React.FC = () => {
         break;
 
       case 'genai':
-        setState(prev => ({ ...prev, lastAction: 'Generating...' }));
+        setState(prev => ({ ...prev, lastAction: 'Generating...', error: '' }));
         try {
           const apiKey = getAPIKey();
           if (!apiKey) {
             setState(prev => ({
               ...prev,
-              error: 'No API key. Use "refresh" then select genkey',
+              error: 'No API key. Select "refresh" then use genkey',
               lastAction: 'API key required',
             }));
             break;
@@ -196,10 +196,11 @@ const App: React.FC = () => {
             }));
           }
         } catch (err) {
+          const msg = err instanceof Error ? err.message : 'Unknown error';
           setState(prev => ({
             ...prev,
             error: 'Network error or invalid API key',
-            lastAction: 'Generation error',
+            lastAction: 'Generation error: ' + msg.substring(0, 30),
           }));
         }
         break;
@@ -399,7 +400,46 @@ const App: React.FC = () => {
   }, []);
 
   useInput((input, key) => {
-    if (state.mode === 'splash' || state.mode === 'apikey') return;
+    if (state.mode === 'splash') return;
+
+    if (state.mode === 'apikey') {
+      if (key.return) {
+        if (state.inputValue.trim()) {
+          saveAPIKey(state.inputValue.trim());
+          setState(prev => ({
+            ...prev,
+            mode: 'menu' as const,
+            inputValue: '',
+            lastAction: 'API key saved',
+          }));
+          reloadGitStatus();
+        } else {
+          // Allow empty to skip
+          setState(prev => ({
+            ...prev,
+            mode: 'menu' as const,
+            inputValue: '',
+          }));
+        }
+      } else if (key.escape) {
+        setState(prev => ({
+          ...prev,
+          mode: 'menu' as const,
+          inputValue: '',
+        }));
+      } else if (key.backspace || key.delete) {
+        setState(prev => ({
+          ...prev,
+          inputValue: prev.inputValue.slice(0, -1),
+        }));
+      } else if (input && !key.ctrl && !key.meta && !key.shift) {
+        setState(prev => ({
+          ...prev,
+          inputValue: prev.inputValue + input,
+        }));
+      }
+      return;
+    }
 
     if (state.mode === 'menu') {
       if (key.upArrow) {
@@ -456,12 +496,12 @@ const App: React.FC = () => {
           mode: 'menu' as const,
           inputValue: '',
         }));
-      } else if (key.backspace) {
+      } else if (key.backspace || key.delete) {
         setState(prev => ({
           ...prev,
           inputValue: prev.inputValue.slice(0, -1),
         }));
-      } else if (input && !key.ctrl && !key.meta) {
+      } else if (input && !key.ctrl && !key.meta && !key.shift) {
         setState(prev => ({
           ...prev,
           inputValue: prev.inputValue + input,

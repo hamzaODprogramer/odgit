@@ -17,7 +17,13 @@ export const generateCommitMessage = async (
     };
   }
 
-  // Truncate diff to prevent token limits
+  if (!apiKey || apiKey.trim().length === 0) {
+    return {
+      success: false,
+      error: '⚠ API key is empty or invalid.',
+    };
+  }
+
   const truncatedDiff = diff.length > 3000 ? diff.substring(0, 3000) + '\n...(truncated)' : diff;
 
   const systemPrompt = `You are a helpful assistant that generates concise, conventional git commit messages.
@@ -52,17 +58,23 @@ Only respond with the commit message, nothing else.`;
       if (response.status === 401 || response.status === 403) {
         return {
           success: false,
-          error: '⚠ Invalid API key. Run "change api key" to update it.',
+          error: '⚠ Invalid API key. Check your key is correct.',
         };
       } else if (response.status === 429) {
         return {
           success: false,
-          error: '⚠ Rate limit reached. Please wait a moment and try again.',
+          error: '⚠ Rate limit reached. Please wait a moment.',
         };
-      } else {
+      } else if (response.status === 404) {
         return {
           success: false,
-          error: `⚠ API error (${response.status}). Please try again.`,
+          error: '⚠ API endpoint not found. Check apifreellm.com status.',
+        };
+      } else {
+        const text = await response.text();
+        return {
+          success: false,
+          error: `⚠ API error ${response.status}. Try again later.`,
         };
       }
     }
@@ -72,25 +84,44 @@ Only respond with the commit message, nothing else.`;
     if (!data.choices || !data.choices[0]?.message?.content) {
       return {
         success: false,
-        error: '⚠ AI error. Please try again.',
+        error: '⚠ No response from API. Please try again.',
       };
     }
 
     const message = data.choices[0].message.content.trim();
+    if (!message) {
+      return {
+        success: false,
+        error: '⚠ Empty message generated. Please try again.',
+      };
+    }
+
     return { success: true, message };
   } catch (err) {
     const error = err instanceof Error ? err.message : 'Unknown error';
 
-    if (error.includes('fetch') || error.includes('ENOTFOUND') || error.includes('ECONNREFUSED')) {
+    if (
+      error.includes('fetch') ||
+      error.includes('ENOTFOUND') ||
+      error.includes('ECONNREFUSED') ||
+      error.includes('ERR_')
+    ) {
       return {
         success: false,
-        error: '⚠ Network error. Check your internet connection.',
+        error: '⚠ Network error. Check internet connection and try again.',
+      };
+    }
+
+    if (error.includes('JSON')) {
+      return {
+        success: false,
+        error: '⚠ API response invalid. API may be down.',
       };
     }
 
     return {
       success: false,
-      error: '⚠ AI error. Please try again.',
+      error: '⚠ AI error: ' + error.substring(0, 50),
     };
   }
 };
