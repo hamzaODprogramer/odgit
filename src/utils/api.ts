@@ -26,14 +26,16 @@ export const generateCommitMessage = async (
 
   const truncatedDiff = diff.length > 2000 ? diff.substring(0, 2000) + '\n...(truncated)' : diff;
 
-  const prompt = `Generate a conventional commit message for this git diff. Follow these rules:
-- Start with type: feat, fix, docs, style, refactor, perf, test, chore, ci
-- Format: "type(scope): subject" (scope optional)
-- Subject lowercase, imperative, max 50 chars
-- No period at end
-- ONLY output the commit message, nothing else
+  const prompt = `You are a git commit message generator. Analyze this git diff and generate ONLY a single conventional commit message. Nothing else, just the message.
 
-Diff:
+Rules:
+- Start with type: feat, fix, docs, style, refactor, perf, test, chore, ci
+- Format: "type(scope): subject" where scope is optional
+- Subject must be lowercase, imperative, max 50 chars
+- No period at end
+- ONLY output ONE commit message line
+
+Git diff:
 ${truncatedDiff}`;
 
   try {
@@ -74,14 +76,8 @@ ${truncatedDiff}`;
 
     const data = await response.json() as Record<string, unknown>;
 
-    // The API might return { result, message, text, content, or reply }
-    const message =
-      (typeof data.result === 'string' ? data.result : null) ||
-      (typeof data.message === 'string' ? data.message : null) ||
-      (typeof data.text === 'string' ? data.text : null) ||
-      (typeof data.content === 'string' ? data.content : null) ||
-      (typeof data.reply === 'string' ? data.reply : null) ||
-      (typeof data === 'string' ? data : null);
+    // The API returns { success, response, provider, model, ... }
+    const message = typeof data.response === 'string' ? data.response : null;
 
     if (!message || typeof message !== 'string') {
       return {
