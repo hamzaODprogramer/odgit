@@ -4,7 +4,7 @@ export interface GenerateMessageResult {
   error?: string;
 }
 
-const APIFREELLM_ENDPOINT = 'https://api.apifreeellm.com/v1/chat/completions';
+const APIFREELLM_ENDPOINT = 'https://apifreellm.com/api/v1/chat';
 
 export const generateCommitMessage = async (
   diff: string,
@@ -24,17 +24,17 @@ export const generateCommitMessage = async (
     };
   }
 
-  const truncatedDiff = diff.length > 3000 ? diff.substring(0, 3000) + '\n...(truncated)' : diff;
+  const truncatedDiff = diff.length > 2000 ? diff.substring(0, 2000) + '\n...(truncated)' : diff;
 
-  const systemPrompt = `You are a helpful assistant that generates concise, conventional git commit messages.
-Given a git diff, generate a single commit message following the conventional commits format:
-- Start with a type: feat, fix, docs, style, refactor, perf, test, chore, ci
-- Format: "type(scope): subject" where scope is optional
-- Subject should be lowercase, imperative, max 50 chars
-- No period at the end
-Only respond with the commit message, nothing else.`;
+  const prompt = `Generate a conventional commit message for this git diff. Follow these rules:
+- Start with type: feat, fix, docs, style, refactor, perf, test, chore, ci
+- Format: "type(scope): subject" (scope optional)
+- Subject lowercase, imperative, max 50 chars
+- No period at end
+- ONLY output the commit message, nothing else
 
-  const userPrompt = `Generate a commit message for this diff:\n\n${truncatedDiff}`;
+Diff:
+${truncatedDiff}`;
 
   try {
     const response = await fetch(APIFREELLM_ENDPOINT, {
@@ -44,13 +44,7 @@ Only respond with the commit message, nothing else.`;
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt },
-        ],
-        max_tokens: 100,
-        temperature: 0.7,
+        message: prompt,
       }),
     });
 
@@ -58,12 +52,12 @@ Only respond with the commit message, nothing else.`;
       if (response.status === 401 || response.status === 403) {
         return {
           success: false,
-          error: '⚠ Invalid API key. Check your key is correct.',
+          error: '⚠ Invalid API key. Check your key at apifreellm.com',
         };
       } else if (response.status === 429) {
         return {
           success: false,
-          error: '⚠ Rate limit reached. Please wait a moment.',
+          error: '⚠ Rate limit reached. Wait a moment and try again.',
         };
       } else if (response.status === 404) {
         return {
@@ -71,7 +65,6 @@ Only respond with the commit message, nothing else.`;
           error: '⚠ API endpoint not found. Check apifreellm.com status.',
         };
       } else {
-        const text = await response.text();
         return {
           success: false,
           error: `⚠ API error ${response.status}. Try again later.`,
@@ -79,24 +72,33 @@ Only respond with the commit message, nothing else.`;
       }
     }
 
-    const data = await response.json() as { choices?: Array<{ message?: { content?: string } }> };
+    const data = await response.json() as Record<string, unknown>;
 
-    if (!data.choices || !data.choices[0]?.message?.content) {
+    // The API might return { result, message, text, content, or reply }
+    const message =
+      (typeof data.result === 'string' ? data.result : null) ||
+      (typeof data.message === 'string' ? data.message : null) ||
+      (typeof data.text === 'string' ? data.text : null) ||
+      (typeof data.content === 'string' ? data.content : null) ||
+      (typeof data.reply === 'string' ? data.reply : null) ||
+      (typeof data === 'string' ? data : null);
+
+    if (!message || typeof message !== 'string') {
       return {
         success: false,
-        error: '⚠ No response from API. Please try again.',
+        error: '⚠ Empty response from API. Try again.',
       };
     }
 
-    const message = data.choices[0].message.content.trim();
-    if (!message) {
+    const trimmed = message.trim();
+    if (!trimmed) {
       return {
         success: false,
-        error: '⚠ Empty message generated. Please try again.',
+        error: '⚠ Empty message generated. Try again.',
       };
     }
 
-    return { success: true, message };
+    return { success: true, message: trimmed };
   } catch (err) {
     const error = err instanceof Error ? err.message : 'Unknown error';
 
@@ -108,20 +110,20 @@ Only respond with the commit message, nothing else.`;
     ) {
       return {
         success: false,
-        error: '⚠ Network error. Check internet connection and try again.',
+        error: '⚠ Network error. Check internet and try again.',
       };
     }
 
     if (error.includes('JSON')) {
       return {
         success: false,
-        error: '⚠ API response invalid. API may be down.',
+        error: '⚠ Invalid response. API may be down.',
       };
     }
 
     return {
       success: false,
-      error: '⚠ AI error: ' + error.substring(0, 50),
+      error: '⚠ Error: ' + error.substring(0, 40),
     };
   }
 };
