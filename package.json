@@ -1,7 +1,7 @@
 {
   "name": "odgit",
   "version": "1.0.0",
-  "description": "A beautiful git TUI dashboard with retro dark aesthetic",
+  "description": "Beautiful retro git TUI dashboard. Keyboard-driven, zero bloat, pure terminal excellence.",
   "type": "module",
   "bin": {
     "odgit": "./dist/index.js"
@@ -10,17 +10,34 @@
   "scripts": {
     "build": "tsc",
     "start": "tsx src/index.ts",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "git",
     "cli",
     "tui",
     "terminal",
-    "dashboard"
+    "dashboard",
+    "retro",
+    "dark-mode",
+    "keyboard"
   ],
-  "author": "odgit",
+  "author": "Your Name",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/odgit"
+  },
+  "homepage": "https://github.com/yourusername/odgit#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/odgit/issues"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "chalk": "^5.3.0",
     "dotenv": "^16.3.1",
