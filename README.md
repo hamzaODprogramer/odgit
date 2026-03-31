@@ -1,192 +1,221 @@
 # odgit - Retro Git TUI Dashboard
 
-A clean, minimal, high-performance terminal git interface with a dark retro aesthetic. No emojis, no bloat—just pure terminal excellence.
-
-## ✨ Features
-
-- **Retro Aesthetic** - ASCII art title, cyan/magenta gradient colors, dark background
-- **Zero Re-render Loop** - Single render architecture, ultra-fast performance
-- **Smart Workflow** - Commit auto-stages files first (no extra step)
-- **AI Commit Messages** - Generate conventional commits from git diff (apifreellm.com)
-- **Full Git Control** - 13 essential git operations in one place
-- **Keyboard-Only** - Arrow keys + Enter, no mouse needed
-- **First Launch Wizard** - Painless API key setup
-- **Clean UX** - No emojis, text-only, retro dark UI
-
-## 🎮 Installation
-
-```bash
-# Install globally
-npm install -g odgit
-
-# Or run locally
-cd odgit && npm start
-```
-
-## 📖 Usage
-
-```bash
-odgit
-```
-
-### Layout
+A beautiful, keyboard-driven git interface with a dark retro aesthetic. Fast, minimal, no bloat.
 
 ```
-┌────────────────┐  ODGIT v1.0
-│ ▸ status       │
-│   stage        │  Branch: main | Status: clean
-│   commit       │  ─────────────────────────────
+┌────────────────┐
+│ ▸ status       │          === ODGIT v1.0 ===
+│   stage        │
+│   commit       │          Branch: main | Status: clean
 │   gen msg      │
-│   push         │  Ready
+│   push         │          Ready
 │   pull         │
 │   log          │
 │   branch       │
 │   stash        │
 │   pop stash    │
 │   discard      │
-│   help         │  ? = help · q = quit · ↑↓ navigate · Enter execute
+│   help         │          ? = help · q = quit · ↑↓ navigate
 │   quit         │
 └────────────────┘
 ```
 
-### Keyboard Shortcuts
+---
 
-| Key | Action |
-|-----|--------|
-| `↑↓` | Navigate menu |
-| `Enter` | Execute action |
-| `?` | Show help |
-| `q` | Quit |
-| `Backspace` | Delete character (in input mode) |
-| `Esc` | Cancel (confirmation/input modes) |
+## 🎯 What is odgit?
 
-## 📋 Menu Actions
+A **git dashboard in your terminal** that lets you:
+- See git status instantly
+- Stage, commit, push, pull with just arrow keys
+- Generate commit messages using AI
+- Manage branches, stash, and view logs
+- All without touching the mouse
 
-| Action | Description |
-|--------|-------------|
-| **status** | Show git status with file counts |
-| **stage** | Stage all changes |
-| **commit** | Auto-stage + enter commit message |
-| **gen msg** | Generate commit message from diff (requires API key) |
-| **push** | Push to remote (with confirmation) |
-| **pull** | Pull from remote (with confirmation) |
-| **log** | Show last 5 commits |
-| **branch** | Switch to another branch |
-| **stash** | Stash current changes |
-| **pop stash** | Restore stashed changes |
-| **discard** | Discard all unstaged changes (dangerous) |
-| **help** | Show keyboard help |
-| **quit** | Exit |
-
-## 🚀 Smart Features
-
-### Commit Auto-Staging
-Select "commit" → type message → auto-stages and commits. One action, two operations.
-
-### AI Commit Messages
-```
-1. Select "gen msg"
-2. App detects git diff (staged + unstaged)
-3. Sends to apifreellm.com (free API)
-4. Shows generated conventional commit
-5. You can edit or accept
-```
-
-### First Launch API Setup
-On first run, odgit checks for API key. If missing:
-```
-Welcome to ODGIT!
-
-Optional: Set API key for AI commit messages
-Get free key: https://apifreellm.com
-
-API Key: _
-```
-Press Esc to skip or Enter to save.
-
-## 🏗️ Project Structure
-
-```
-odgit/
-├── src/
-│   ├── index.ts              # CLI entry point
-│   ├── app.tsx               # Main app component
-│   ├── utils/
-│   │   ├── git.ts            # Git command wrapper
-│   │   ├── api.ts            # AI API client
-│   │   ├── config.ts         # .env + API key management
-│   │   ├── colors.ts         # Styling + formatting
-│   │   └── render.ts         # ASCII art rendering
-│   └── types/
-│       └── index.ts          # TypeScript interfaces
-├── dist/                     # Compiled output
-├── package.json
-├── tsconfig.json
-├── README.md
-└── LAYOUT.md                 # UI layout reference
-```
-
-## 🛠️ Building
-
-```bash
-# Install dependencies
-npm install
-
-# Build TypeScript
-npm run build
-
-# Run
-npm start
-
-# Run in watch mode (for development)
-npm run dev
-```
-
-## 🎨 Design Philosophy
-
-- **Text-Only UI** - No emojis, no distracting visuals
-- **Single Render** - Component renders once per state change, not continuously
-- **Retro Aesthetic** - Cyan/magenta gradients, dark background (#0a0a0f)
-- **Keyboard Focused** - Arrows + Enter, no mouse required
-- **Smart Defaults** - Commit auto-stages, confirmations protect against mistakes
-- **No Bloat** - Only essential git operations, clean UI
-
-## 📦 Dependencies
-
-- **ink** - React terminal UI framework
-- **react** - Component model
-- **execa** - Execute git commands
-- **chalk** - Terminal colors (hex support)
-- **gradient-string** - Color gradients
-- **figlet** - ASCII art text
-- **dotenv** - Environment configuration
-
-## ⚙️ Configuration
-
-The app stores API keys in `.env`:
-```
-APIFREELLM_KEY=sk_YOUR_KEY_HERE
-```
-
-To change the API key, select "genkey" from the menu and enter a new one.
-
-## 🐛 Troubleshooting
-
-**"Raw mode not supported"** - This error only appears in non-TTY environments (GitHub, CI/CD, etc.). The app works fine in a real terminal.
-
-**"No git repository"** - Make sure you're in a git project directory. Run `git init` first if needed.
-
-**"API key invalid"** - Get a free key from https://apifreellm.com and set it via the "genkey" menu.
-
-## 📝 License
-
-MIT
-
-## 🎯 Version
-
-v1.0.0 - Initial release
+**Fast. Minimal. Retro.**
 
 ---
 
-Built with ♡ using TypeScript + Ink
+## ⚡ Quick Start
 
+### Install (One Command)
+
+```bash
+npm install -g odgit
+```
+
+### Run (Type Anywhere)
+
+```bash
+odgit
+```
+
+Done! 🚀
+
+---
+
+## 🎮 How to Use
+
+**Keyboard only. That's it.**
+
+| Key | What It Does |
+|-----|--------------|
+| `↑` `↓` | Move up/down in menu |
+| `Enter` | Do the selected action |
+| `?` | Show help |
+| `q` | Quit |
+| `r` | Refresh |
+
+### Example Workflow
+
+```
+1. Type: odgit
+2. Edit some files in your project
+3. Press ↓ to select "commit"
+4. Press Enter
+5. Type your commit message
+6. Press Enter
+7. Done! Files auto-staged and committed
+```
+
+---
+
+## 📋 What You Can Do
+
+| Action | What It Does |
+|--------|-------------|
+| **status** | See all modified files |
+| **stage** | Mark files to commit |
+| **commit** | Stage everything + write message |
+| **gen msg** | AI generates commit message for you |
+| **push** | Send commits to GitHub |
+| **pull** | Get latest from GitHub |
+| **log** | See recent commits |
+| **branch** | Switch to another branch |
+| **stash** | Save work temporarily |
+| **pop stash** | Get saved work back |
+| **discard** | Throw away changes (whoops!) |
+
+---
+
+## 🤖 AI Commit Messages (Optional)
+
+odgit can auto-generate commit messages using AI:
+
+```
+1. Select "gen msg"
+2. Press Enter
+3. Wait 2 seconds
+4. See: "feat(auth): add login function"
+5. Edit or confirm
+```
+
+**How to enable:**
+- On first launch, paste your free API key from https://apifreellm.com
+- Or type `genkey` later to add it
+
+---
+
+## ❓ FAQ
+
+### Q: I ran `npm install -g odgit`. Can I now type `odgit` from anywhere?
+
+**A: Yes!** After `npm install -g odgit`, the `odgit` command works in any terminal, any directory. Just type:
+
+```bash
+odgit
+```
+
+It works because npm puts it in your PATH. No extra setup needed.
+
+### Q: Do I need to be in a git project?
+
+**A: Yes.** odgit only works inside git repositories. If you're not in one, run `git init` first.
+
+### Q: Where does odgit save my API key?
+
+**A: In `.env` file** in your home directory. It's never uploaded to GitHub or sent anywhere except to apifreellm.com for generating messages.
+
+### Q: Can I use odgit without the AI feature?
+
+**A: Absolutely.** Just skip the API key setup on first launch (press Esc). You can use all other features normally.
+
+### Q: What if I mess up my code with "discard"?
+
+**A: Be careful!** "discard" deletes all changes. Use it only when you're sure. Odgit asks for confirmation before doing it.
+
+### Q: How do I update odgit?
+
+**A: Same command:**
+
+```bash
+npm install -g odgit
+```
+
+npm automatically updates to the latest version.
+
+### Q: Can I use this on Windows / Mac / Linux?
+
+**A: Yes!** Works on all three. You just need Node.js 18+.
+
+### Q: I got an error "Raw mode not supported"
+
+**A: You're probably in a non-interactive terminal** (GitHub Actions, Docker, etc.). odgit needs a real terminal to work. Try running locally instead.
+
+### Q: Where can I report bugs?
+
+**A: GitHub Issues:** https://github.com/yourusername/odgit/issues
+
+---
+
+## 🎨 Why Is It Different?
+
+- **No mouse** - Pure keyboard, super fast
+- **No clutter** - Just what you need
+- **Retro look** - Cyan/magenta, dark background
+- **Smart features** - Auto-stages before commit
+- **AI integration** - Free conventional commits
+- **Single render** - Ultra-fast, no lag
+
+---
+
+## 🔧 Troubleshooting
+
+**"odgit: command not found"**
+```bash
+npm install -g odgit
+```
+
+**"No git repository"**
+```bash
+git init
+```
+
+**"API key invalid"**
+- Get a free key: https://apifreellm.com
+- Run: Select "genkey" from menu
+
+**"Terminal looks weird"**
+- Try a different terminal app
+- Make sure terminal supports 256+ colors
+
+---
+
+## 📖 Learn More
+
+- **Quick Start:** See QUICKSTART.md
+- **Installation:** See package.json
+- **Contributing:** Pull requests welcome!
+
+---
+
+## 📝 License
+
+MIT - Use however you want
+
+---
+
+## 🙋 Support
+
+Questions? Open an issue on GitHub or check QUICKSTART.md for more help.
+
+**Happy committing!** 🚀
