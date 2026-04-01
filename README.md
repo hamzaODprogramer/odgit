@@ -1,19 +1,20 @@
-# odgit - Retro Git TUI Dashboard
+# odgit
 
-A beautiful, keyboard-driven git interface with a dark retro aesthetic. Fast, minimal, no bloat.
-<img width="1536" height="626" alt="odgit-img" src="https://github.com/user-attachments/assets/ff359620-172d-4448-bacd-64b1ed69142b" />
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm: @hamzaod/odgit](https://img.shields.io/badge/npm-%40hamzaod%2Fodgit-blue)](https://www.npmjs.com/package/@hamzaod/odgit)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue.svg)](https://www.typescriptlang.org/)
 
+<img width="1536" height="626" alt="odgit-screenshot" src="https://github.com/user-attachments/assets/ff359620-172d-4448-bacd-64b1ed69142b" />
 
-## 🎯 What is odgit?
+A beautiful, keyboard-driven git TUI dashboard with a dark retro aesthetic. Fast, minimal, no bloat. Perfect for managing git operations right from your terminal.
 
-A **git dashboard in your terminal** that lets you:
-- See git status instantly
-- Stage, commit, push, pull with just arrow keys
-- Generate commit messages using AI
-- Manage branches, stash, and view logs
-- All without touching the mouse
-
-**Fast. Minimal. Retro.**
+With odgit you can:
+- **See git status instantly** - All modified files at a glance
+- **Navigate with just keyboard** - Arrow keys, Enter, that's it
+- **Stage and commit smartly** - Auto-stages before commit
+- **Generate commit messages with AI** - Free conventional commits using apifreellm
+- **Manage branches, stash, logs** - All git operations in one place
+- **No mouse required** - Pure keyboard-driven workflow
 
 ---
 
