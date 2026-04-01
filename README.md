@@ -1,31 +1,14 @@
 # odgit - Retro Git TUI Dashboard
 
 A beautiful, keyboard-driven git interface with a dark retro aesthetic. Fast, minimal, no bloat.
+<img width="1536" height="626" alt="odgit-img" src="https://github.com/user-attachments/assets/ff359620-172d-4448-bacd-64b1ed69142b" />
 
-```
-┌────────────────┐
-│ ▸ status       │          === ODGIT v1.0 ===
-│   stage        │
-│   commit       │          Branch: main | Status: clean
-│   gen msg      │
-│   push         │          Ready
-│   pull         │
-│   log          │
-│   branch       │
-│   stash        │
-│   pop stash    │
-│   discard      │
-│   help         │          ? = help · q = quit · ↑↓ navigate
-│   quit         │
-└────────────────┘
-```
-
----
 
 ## 🎯 What is odgit?
 
 A **git dashboard in your terminal** that lets you:
-- See git status instantly
+- See git status
+ instantly
 - Stage, commit, push, pull with just arrow keys
 - Generate commit messages using AI
 - Manage branches, stash, and view logs
