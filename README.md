@@ -7,8 +7,7 @@ A beautiful, keyboard-driven git interface with a dark retro aesthetic. Fast, mi
 ## 🎯 What is odgit?
 
 A **git dashboard in your terminal** that lets you:
-- See git status
- instantly
+- See git status instantly
 - Stage, commit, push, pull with just arrow keys
 - Generate commit messages using AI
 - Manage branches, stash, and view logs
@@ -146,7 +145,7 @@ npm automatically updates to the latest version.
 
 ### Q: Where can I report bugs?
 
-**A: GitHub Issues:** https://github.com/yourusername/odgit/issues
+**A: GitHub Issues:** https://github.com/hamzaODprogramer/odgit/issues
 
 ---
 
