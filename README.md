@@ -148,7 +148,7 @@ It works because npm puts it in your PATH. No extra setup needed.
 **A: Same command:**
 
 ```bash
-npm install -g odgit
+npm install -g @hamzaod/odgit
 ```
 
 npm automatically updates to the latest version.
@@ -217,5 +217,17 @@ MIT - Use however you want
 ## 🙋 Support
 
 Questions? Open an issue on GitHub or check QUICKSTART.md for more help.
+
+---
+
+## 📦 Package
+
+**npm:** https://www.npmjs.com/package/@hamzaod/odgit
+**GitHub:** https://github.com/hamzaODprogramer/odgit
+
+Install with:
+```bash
+npm install -g @hamzaod/odgit
+```
 
 **Happy committing!** 🚀
