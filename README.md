@@ -40,7 +40,7 @@ A **git dashboard in your terminal** that lets you:
 ### Install (One Command)
 
 ```bash
-npm install -g odgit
+npm install -g @hamzaod/odgit
 ```
 
 ### Run (Type Anywhere)
@@ -117,9 +117,9 @@ odgit can auto-generate commit messages using AI:
 
 ## ❓ FAQ
 
-### Q: I ran `npm install -g odgit`. Can I now type `odgit` from anywhere?
+### Q: I ran `npm install -g @hamzaod/odgit`. Can I now type `odgit` from anywhere?
 
-**A: Yes!** After `npm install -g odgit`, the `odgit` command works in any terminal, any directory. Just type:
+**A: Yes!** After `npm install -g @hamzaod/odgit`, the `odgit` command works in any terminal, any directory. Just type:
 
 ```bash
 odgit
@@ -182,7 +182,7 @@ npm automatically updates to the latest version.
 
 **"odgit: command not found"**
 ```bash
-npm install -g odgit
+npm install -g @hamzaod/odgit
 ```
 
 **"No git repository"**

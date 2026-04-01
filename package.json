@@ -1,5 +1,5 @@
 {
-  "name": "odgit",
+  "name": "@hamzaod/odgit",
   "version": "1.0.0",
   "description": "Beautiful retro git TUI dashboard. Keyboard-driven, zero bloat, pure terminal excellence.",
   "type": "module",
@@ -23,15 +23,15 @@
     "dark-mode",
     "keyboard"
   ],
-  "author": "Your Name",
+  "author": "hamzaODprogramer",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/odgit"
+    "url": "https://github.com/hamzaODprogramer/odgit"
   },
-  "homepage": "https://github.com/yourusername/odgit#readme",
+  "homepage": "https://github.com/hamzaODprogramer/odgit#readme",
   "bugs": {
-    "url": "https://github.com/yourusername/odgit/issues"
+    "url": "https://github.com/hamzaODprogramer/odgit/issues"
   },
   "files": [
     "dist",
@@ -57,5 +57,8 @@
   },
   "engines": {
     "node": "^18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
